@@ -39,8 +39,10 @@ namespace CommunityProApp.Implementations.Services
                 var prev = "";
                 Dictionary<DateTime, int> myCalendar = new Dictionary<DateTime, int>();
                 var calendarStr = File.ReadAllLines(file);
+                int check = calendarStr.Length, count = 0;
                 foreach (var cal in calendarStr)
                 {
+                    count++;
                     var eachCal = cal.Split("\t");
 
                     if (eachCal[0] != prev)
@@ -50,11 +52,15 @@ namespace CommunityProApp.Implementations.Services
                             calender.Add(eachCal[0], myCalendar);
                         }
                         myCalendar = new Dictionary<DateTime, int>();
-                        myCalendar.Add(DateTime.Parse(eachCal[1]), int.Parse(eachCal[2]));
+                        myCalendar.Add(DateTime.Parse(eachCal[1]).Date, int.Parse(eachCal[2]));
                     }
                     else
                     {
-                        myCalendar.Add(DateTime.Parse(eachCal[1]), int.Parse(eachCal[2]));
+                        myCalendar.Add(DateTime.Parse(eachCal[1]).Date, int.Parse(eachCal[2]));
+                    }
+                    if(count == check)
+                    {
+                        calender.Add(eachCal[0], myCalendar);
                     }
                     prev = eachCal[0];
                 }
@@ -67,8 +73,8 @@ namespace CommunityProApp.Implementations.Services
             var date = DateTime.Now;
             for (int i = 0; i < 20; i++)
             {
-                innerDic.Add(date.AddDays(i), 0);
-                WriteToFile(name, date.AddDays(i), 0);
+                innerDic.Add(date.AddDays(i).Date, 0);
+                WriteToFile(name, date.AddDays(i).Date, 0);
             }
             calender.Add(name, innerDic);
         }
@@ -77,7 +83,7 @@ namespace CommunityProApp.Implementations.Services
         {
             using (StreamWriter write = new StreamWriter(file, true))
             {
-                write.WriteLine($"{name}\t{date}\t{value}");                   
+                write.WriteLine($"{name}\t{date.Date}\t{value}");                   
             }
         }
 
@@ -202,7 +208,7 @@ namespace CommunityProApp.Implementations.Services
             for(int k = 0; k < model.NumberOfDays; k++)
             {
                 
-                if(roomTypeCalender[model.CheckInDate.AddDays(k)] >= roomType.Rooms.Count)
+                if(roomTypeCalender[model.CheckInDate.AddDays(k).Date] >= roomType.Rooms.Count)
                 {
                     isAvailable = false;
                     break;

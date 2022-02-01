@@ -22,7 +22,7 @@ namespace CommunityProApp.Controllers
             _hotelService = hotelService;
         }
 
-        [HttpGet("Search")]
+        [HttpPost("Search")]
         public IActionResult SearchAvailableRooms([FromBody] CheckRoomAvailabilityModel model)
         {
 
