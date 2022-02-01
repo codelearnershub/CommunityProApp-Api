@@ -22,65 +22,76 @@ namespace CommunityProApp.Implementations.Services
         static Dictionary<string, Dictionary<DateTime, int>> calender = new Dictionary<string, Dictionary<DateTime, int>>();
         private string file = "C:\\Users\\ABDUL LATEEF RAHEEM\\source\\repos\\CommiunityProApp\\CommiunityProApp\\Context\\calendar.txt";
 
-        private void ReadCalendar()
+        
+        public HotelService(IRoomRepository roomRepository, IRoomTypeRepository roomTypeRepository, IHotelBookingRepository hotelBookingRepository)
         {
-            if(File.Exists(file))
-            {
-                var calendarStr = File.ReadAllLines(file);
-                foreach(var cal in calendarStr)
-                {
-                    calender.Add(GetCaledar(cal));
-                }
-            }    
+            
+            ReadCalendar();
+            _roomRepository = roomRepository;
+            _roomTypeRepository = roomTypeRepository;
+            _hotelBookingRepository = hotelBookingRepository;
         }
 
-        private Dictionary<string, Dictionary<DateTime, int>> GetCaledar(string str)
+        private void ReadCalendar()
         {
-            var cal = str.Split("\t");
-            var key = cal[0];
-            var date = DateTime.Parse(cal[1]);
-            var value = int.Parse(cal[2]);
+            if (File.Exists(file))
+            {
+                var prev = "";
+                Dictionary<DateTime, int> myCalendar = new Dictionary<DateTime, int>();
+                var calendarStr = File.ReadAllLines(file);
+                foreach (var cal in calendarStr)
+                {
+                    var eachCal = cal.Split("\t");
 
-            var newDic = new Dictionary<DateTime, int>();
-            var newCalendar = new Dictionary<string, Dictionary<DateTime, int>>();
-
-            newDic.Add(date, value);
-            newCalendar.Add(key, newDic);
-
-            return newCalendar;
+                    if (eachCal[0] != prev)
+                    {
+                        if (prev != "")
+                        {
+                            calender.Add(eachCal[0], myCalendar);
+                        }
+                        myCalendar = new Dictionary<DateTime, int>();
+                        myCalendar.Add(DateTime.Parse(eachCal[1]), int.Parse(eachCal[2]));
+                    }
+                    else
+                    {
+                        myCalendar.Add(DateTime.Parse(eachCal[1]), int.Parse(eachCal[2]));
+                    }
+                    prev = eachCal[0];
+                }
+            }
         }
 
         private void CreateCalender(string name)
         {
-            Dictionary<DateTime, int> date = new Dictionary<DateTime, int>();
-            var dates = DateTime.Now;
-            for (int i = 0; i < 365; i++)
+            Dictionary<DateTime, int> innerDic = new Dictionary<DateTime, int>();
+            var date = DateTime.Now;
+            for (int i = 0; i < 20; i++)
             {
-                date.Add(dates.AddDays(i),0);
+                innerDic.Add(date.AddDays(i), 0);
+                WriteToFile(name, date.AddDays(i), 0);
             }
-
-            calender.Add(name, date);
+            calender.Add(name, innerDic);
         }
 
-        private void WriteToFile()
+        private void WriteToFile(string name, DateTime date, int value)
         {
-            using(StreamWriter write = new StreamWriter(file, true))
+            using (StreamWriter write = new StreamWriter(file, true))
             {
-                foreach(var cal in calender)
+                write.Write($"{name}\t{date}\t{value}");                   
+            }
+        }
+
+        private void Refresh(string name)
+        {
+            using (StreamWriter write = new StreamWriter(file))
+            {
+                var myCalendar = calender[name];
+                foreach(var cal in myCalendar)
                 {
-                    foreach(var )
-                    write.Write($"{dic.Key}\t{}\t")
+                    write.Write($"{name}\t{cal.Key}\t{cal.Value}");
                 }
+                
             }
-        }
-        public HotelService(IRoomRepository roomRepository, IRoomTypeRepository roomTypeRepository, IHotelBookingRepository hotelBookingRepository)
-        {
-            _hotelBookingRepository = hotelBookingRepository;
-
-            _roomRepository = roomRepository;
-            _roomTypeRepository = roomTypeRepository;
-
-            
         }
 
         public BaseResponse AddRoomType(CreateRoomTypeRequestModel model)
