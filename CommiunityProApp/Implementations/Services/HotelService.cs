@@ -19,13 +19,13 @@ namespace CommunityProApp.Implementations.Services
         private readonly IRoomTypeRepository _roomTypeRepository;
         private readonly IHotelBookingRepository _hotelBookingRepository;
 
-        static Dictionary<string, Dictionary<DateTime, int>> calender = new Dictionary<string, Dictionary<DateTime, int>>();
+        static Dictionary<string, Dictionary<DateTime, int>> calender;
         private string file = "C:\\Users\\ABDUL LATEEF RAHEEM\\source\\repos\\CommiunityProApp\\CommiunityProApp\\Context\\calendar.txt";
 
         
         public HotelService(IRoomRepository roomRepository, IRoomTypeRepository roomTypeRepository, IHotelBookingRepository hotelBookingRepository)
         {
-            
+            calender = new Dictionary<string, Dictionary<DateTime, int>>();
             ReadCalendar();
             _roomRepository = roomRepository;
             _roomTypeRepository = roomTypeRepository;
@@ -77,22 +77,11 @@ namespace CommunityProApp.Implementations.Services
         {
             using (StreamWriter write = new StreamWriter(file, true))
             {
-                write.Write($"{name}\t{date}\t{value}");                   
+                write.WriteLine($"{name}\t{date}\t{value}");                   
             }
         }
 
-        private void Refresh(string name)
-        {
-            using (StreamWriter write = new StreamWriter(file))
-            {
-                var myCalendar = calender[name];
-                foreach(var cal in myCalendar)
-                {
-                    write.Write($"{name}\t{cal.Key}\t{cal.Value}");
-                }
-                
-            }
-        }
+        
 
         public BaseResponse AddRoomType(CreateRoomTypeRequestModel model)
         {
