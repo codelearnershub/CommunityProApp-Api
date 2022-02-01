@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityProApp", "CommiunityProApp\CommunityProApp.csproj", "{F7B2BC7A-341E-425C-A834-DE77D30F8C16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7B2BC7A-341E-425C-A834-DE77D30F8C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B2BC7A-341E-425C-A834-DE77D30F8C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B2BC7A-341E-425C-A834-DE77D30F8C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B2BC7A-341E-425C-A834-DE77D30F8C16}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2BCF7167-10F8-44C2-B0D6-509FBBBB98EA}
+	EndGlobalSection
+EndGlobal
