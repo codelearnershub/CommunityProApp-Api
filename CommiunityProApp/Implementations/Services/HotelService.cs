@@ -6,6 +6,7 @@ using CommunityProApp.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 
@@ -13,18 +14,41 @@ namespace CommunityProApp.Implementations.Services
 {
 
     public class HotelService : IHotelService
-    {
-
-
-        private void 
-        static Dictionary<string, Dictionary<DateTime, int>> calender = new Dictionary<string, Dictionary<DateTime, int>>();
-        
-        
-
+    {   
         private readonly IRoomRepository _roomRepository;
         private readonly IRoomTypeRepository _roomTypeRepository;
         private readonly IHotelBookingRepository _hotelBookingRepository;
 
+        static Dictionary<string, Dictionary<DateTime, int>> calender = new Dictionary<string, Dictionary<DateTime, int>>();
+        private string file = "C:\\Users\\ABDUL LATEEF RAHEEM\\source\\repos\\CommiunityProApp\\CommiunityProApp\\Context\\calendar.txt";
+
+        private void ReadCalendar()
+        {
+            if(File.Exists(file))
+            {
+                var calendarStr = File.ReadAllLines(file);
+                foreach(var cal in calendarStr)
+                {
+                    calender.Add(GetCaledar(cal));
+                }
+            }    
+        }
+
+        private Dictionary<string, Dictionary<DateTime, int>> GetCaledar(string str)
+        {
+            var cal = str.Split("\t");
+            var key = cal[0];
+            var date = DateTime.Parse(cal[1]);
+            var value = int.Parse(cal[2]);
+
+            var newDic = new Dictionary<DateTime, int>();
+            var newCalendar = new Dictionary<string, Dictionary<DateTime, int>>();
+
+            newDic.Add(date, value);
+            newCalendar.Add(key, newDic);
+
+            return newCalendar;
+        }
 
         private void CreateCalender(string name)
         {
@@ -38,6 +62,17 @@ namespace CommunityProApp.Implementations.Services
             calender.Add(name, date);
         }
 
+        private void WriteToFile()
+        {
+            using(StreamWriter write = new StreamWriter(file, true))
+            {
+                foreach(var cal in calender)
+                {
+                    foreach(var )
+                    write.Write($"{dic.Key}\t{}\t")
+                }
+            }
+        }
         public HotelService(IRoomRepository roomRepository, IRoomTypeRepository roomTypeRepository, IHotelBookingRepository hotelBookingRepository)
         {
             _hotelBookingRepository = hotelBookingRepository;
