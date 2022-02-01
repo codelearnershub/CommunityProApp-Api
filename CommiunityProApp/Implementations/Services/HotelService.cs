@@ -20,7 +20,7 @@ namespace CommunityProApp.Implementations.Services
         private readonly IHotelBookingRepository _hotelBookingRepository;
 
         static Dictionary<string, Dictionary<DateTime, int>> calender;
-        private string file = "C:\\Users\\ABDUL LATEEF RAHEEM\\source\\repos\\CommiunityProApp\\CommiunityProApp\\Context\\calendar.txt";
+        private string file = "C:\\Users\\Utman\\Source\\Repos\\CommunityProApp-Api\\CommiunityProApp\\Context\\calendar.txt";
 
         
         public HotelService(IRoomRepository roomRepository, IRoomTypeRepository roomTypeRepository, IHotelBookingRepository hotelBookingRepository)
@@ -155,7 +155,8 @@ namespace CommunityProApp.Implementations.Services
          {
              return _roomRepository.GetAll(r => r.RoomTypeId == roomTypeId && r.Status == Enums.RoomAvailabilityStatus.Available).ToList()
          }*/
-        private SearchRoomDto Getavailableroom(CheckRoomAvailabilityModel model)
+
+        public SearchRoomDto GetAvailableroom(CheckRoomAvailabilityModel model)
         {
             var dr = _roomRepository.Query().Include(a => a.Type).Where(r => r.RoomTypeId == model.RoomTypeId).FirstOrDefault();
             var room = _roomRepository.Query().Include(a => a.Type).Where(r => r.RoomTypeId == model.RoomTypeId)
@@ -199,24 +200,23 @@ namespace CommunityProApp.Implementations.Services
         //    return isAvailble;
         //}
 
-        public bool SearchRoom(CheckRoomAvailabilityModel model)
+        private bool SearchRoom(CheckRoomAvailabilityModel model)
         {
-            var roomType = _roomTypeRepository.Get(model.RoomTypeId);
+            var roomType = _roomTypeRepository.GetById(model.RoomTypeId);
             var roomTypeCalender = calender[roomType.Name];
             bool isAvailable = true;
             
             for(int k = 0; k < model.NumberOfDays; k++)
             {
-                
-                if(roomTypeCalender[model.CheckInDate.AddDays(k).Date] >= roomType.Rooms.Count)
+                if (roomTypeCalender[model.CheckInDate.AddDays(k).Date] >= roomType.Rooms.Count)
                 {
                     isAvailable = false;
                     break;
                 }
-
             }
             return isAvailable;
         }
+
         public BookRoomInvoice BookRoom(CreateBookingRequestModel model)
         {
 

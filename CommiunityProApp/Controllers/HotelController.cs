@@ -26,7 +26,7 @@ namespace CommunityProApp.Controllers
         public IActionResult SearchAvailableRooms([FromBody] CheckRoomAvailabilityModel model)
         {
 
-            var searchRooms = _hotelService.SearchRoom(model);
+            var searchRooms = _hotelService.GetAvailableroom(model);
             return Ok(searchRooms);
         }
 

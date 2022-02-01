@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ABDUL LATEEF RAHEEM\\source\\repos\\CommiunityProApp\\CommiunityProApp\\CommunityProApp.csproj": {}
+    "C:\\Users\\Utman\\Source\\Repos\\CommunityProApp-Api\\CommiunityProApp\\CommunityProApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ABDUL LATEEF RAHEEM\\source\\repos\\CommiunityProApp\\CommiunityProApp\\CommunityProApp.csproj": {
+    "C:\\Users\\Utman\\Source\\Repos\\CommunityProApp-Api\\CommiunityProApp\\CommunityProApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ABDUL LATEEF RAHEEM\\source\\repos\\CommiunityProApp\\CommiunityProApp\\CommunityProApp.csproj",
+        "projectUniqueName": "C:\\Users\\Utman\\Source\\Repos\\CommunityProApp-Api\\CommiunityProApp\\CommunityProApp.csproj",
         "projectName": "CommunityProApp",
-        "projectPath": "C:\\Users\\ABDUL LATEEF RAHEEM\\source\\repos\\CommiunityProApp\\CommiunityProApp\\CommunityProApp.csproj",
-        "packagesPath": "C:\\Users\\ABDUL LATEEF RAHEEM\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ABDUL LATEEF RAHEEM\\source\\repos\\CommiunityProApp\\CommiunityProApp\\obj\\",
+        "projectPath": "C:\\Users\\Utman\\Source\\Repos\\CommunityProApp-Api\\CommiunityProApp\\CommunityProApp.csproj",
+        "packagesPath": "C:\\Users\\Utman\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Utman\\Source\\Repos\\CommunityProApp-Api\\CommiunityProApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ABDUL LATEEF RAHEEM\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Utman\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -73,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -15,6 +15,6 @@ namespace CommunityProApp.Interfaces.Services
 
         IList<RoomTypeDto> GetRoomTypes(int roomTypeId);
 
-        bool SearchRoom(CheckRoomAvailabilityModel model);
+        SearchRoomDto GetAvailableroom(CheckRoomAvailabilityModel model);
     }
 }
