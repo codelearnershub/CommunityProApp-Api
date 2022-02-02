@@ -87,7 +87,22 @@ namespace CommunityProApp.Implementations.Services
             }
         }
 
-        
+        private void RefreshFile()
+        {
+            var keys = calender.Keys;
+
+            using (StreamWriter write = new StreamWriter(file))
+            {
+                foreach (var key in keys)
+                {
+                    var innerCal = calender[key];
+                    foreach (var dic in innerCal)
+                    {
+                        write.WriteLine($"{key}\t{dic.Key}\t{dic.Value}");
+                    }
+                }
+            }
+        }
 
         public BaseResponse AddRoomType(CreateRoomTypeRequestModel model)
         {
@@ -225,8 +240,10 @@ namespace CommunityProApp.Implementations.Services
             var roomTypeCalender = calender[room.Type.Name];
             for (int k = 0; k < model.NumberOfDays; k++)
             {
-                roomTypeCalender[model.CheckInDate.AddDays(k)] += 1;
+                roomTypeCalender[model.CheckInDate.AddDays(k).Date] += 1;
             }
+            RefreshFile();
+
             var booking = new HotelBooking
             {
                 NumberOfAdults = model.NumberOfAdults,
